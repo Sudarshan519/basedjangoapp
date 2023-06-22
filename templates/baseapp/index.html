@@ -8,6 +8,10 @@
 </head>
 
 <body>
+
+    {% load static %}
+    <img src="{% static 'my_app/example.jpg' %}" alt="My image">
+    <a href="{% static 'baseapp/abc.txt' %}" alt="My image">Text</a>
     {% if message %}
     {{message}}
     {% else %}
@@ -26,7 +30,7 @@
 
     </ol>
 
-    Messages From
+    Contact Data
     <ol>
         {% for days in contacts %}
         <li>
@@ -44,7 +48,8 @@
             <label for="exampleInputEmail1">Email address</label>
             <input type="text" class="form-control" id="email" name="email" aria-describedby="emailHelp"
                 placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                else.</small>
         </div>
 
         <div class="form-group">
