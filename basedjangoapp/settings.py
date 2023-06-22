@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-xcd&1ctm1(l@xxl=$$=h$$d-i=*%q)%!h&2s+#zpt79&lm&y0i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['.vercel.app','127.0.0.1' ]
 
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'baseapp'
+    'baseapp',
+    
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    
 ]
 
 ROOT_URLCONF = 'basedjangoapp.urls'
@@ -135,10 +139,13 @@ MEDIA_URL = "/media/"
 STATIC_URL = "/static/"
 if DEBUG:
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static')
+        os.path.join(BASE_DIR, 'static'),
+
     ]
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = ''
+
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, "static"),
 # ]
