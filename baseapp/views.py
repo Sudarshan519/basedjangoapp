@@ -5,7 +5,7 @@ from . models import Contacts
 
 # Create your views here.
 def index(request):
-    contactlist=Contacts.objects.all()
+    contactlist=Contacts.objects.all()[:5]
 
     return render(request,'baseapp/index.html',{"contacts":contactlist})
 
@@ -15,7 +15,7 @@ def contactSubmit(request):
     contact.email=request.POST['email']
     contact.message=(request.POST['message'])
     contact.save()
-    contactlist=Contacts.objects.all()
+    contactlist=Contacts.objects.all().order_by('-id')[:10]
 
     # 
     # return redirect("index", )
