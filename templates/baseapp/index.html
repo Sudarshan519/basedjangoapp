@@ -26,8 +26,18 @@
 
     </ol>
 
+    Messages From
+    <ol>
+        {% for days in contacts %}
+        <li>
+            <div>
+                From: {{days.email}}->
+            </div>
+            <div>Message:{{days.message}}</div>
+        </li>
+        {% endfor %}
 
-
+    </ol>
     <form action="/contact/" method="POST">
         {% csrf_token %}
         <div class="form-group">
