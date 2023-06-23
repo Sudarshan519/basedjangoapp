@@ -5,7 +5,11 @@ body {
 }
 
 header {
-    /* background-color: #333; */
+    position: sticky;
+
+
+    background-color: #fff;
+    /* #333; */
     color: #fff;
     padding: 30px;
 }
@@ -22,13 +26,15 @@ nav ul li {
     display: inline;
     margin-right: 5%;
     margin-top: 8%;
+    padding: 10px;
 }
 
 nav ul li a {
     /* color: #fff; */
     text-decoration: none;
     padding: 40px;
-    margin-top: 30px;
+    margin-bottom: 8%;
+    margin: 30px;
 }
 
 section {
@@ -36,8 +42,11 @@ section {
 }
 
 #home {
+    background-position: center;
+    background-repeat: no-repeat;
     background-color: #f2f2f2;
     text-align: center;
+    object-fit: cover;
 }
 
 #portfolio .project {
@@ -55,4 +64,38 @@ footer {
     color: #fff;
     padding: 10px;
     text-align: center;
+}
+
+.card {
+    padding: 10px;
+    margin: 12px;
+
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 12px rgb(63, 63, 63);
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    /* max-width: 496px; */
+    margin: 0 auto;
+    padding: 9px;
+    /* background-color: rgb(95, 95, 255); */
+}
+
+img {
+    /* The image used */
+
+    /* Full height */
+    object-fit: cover;
+
+    max-width: 100px;
+    max-height: 160px;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
 }
