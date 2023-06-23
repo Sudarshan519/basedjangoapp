@@ -7,9 +7,10 @@ from rest_framework.response import Response
 from django.views.decorators.cache import cache_page
 from rest_framework.decorators import api_view
 from django.http import HttpResponse, JsonResponse
+from rest_framework import generics
 # Create your views here.
 def index(request): 
-    contactlist=Contact.objects.all()
+    contactlist=Contact.objects.all()[:100]
 
     return render(request,'baseapp/index.html',{"contacts":contactlist})
 
@@ -17,25 +18,26 @@ def index(request):
 def contactSubmit(request):
     i=0
     contactlist=[]
-    while i<1000:
+    while i<10000:
         i+=1
         contact=Contact()
         contact.email=request.POST['email']
         contact.message=(request.POST['message'])
-        # contact.save()
+        # contact.save()ser
         contactlist.append(contact)
         # contactlist=Contact.objects.all().order_by('-id')[:10]
-    # Contact.objects.bulk_create(contactlist)
+    Contact.objects.bulk_create(contactlist)
     # 
     # return redirect("index", )
 # {"message":"Your message have been saved successfully"}
     return render(request,'baseapp/index.html',{"contacts":contactlist,"message":"Your message have been saved successfully"})
 # @cache_page(60 * 15, cache="special_cache")
-class AllContacts(APIView):
-    def get(self,request, format=None):
-        contact=Contact.objects.all()
-        serializer=ContactSerializer(contact,many=True)
-        return Response(serializer.data)
+class AllContacts(generics.ListAPIView):
+        queryset=Contact.objects.all()#[:100]
+        serializer_class = ContactSerializer
+    # def get(self,request, format=None):
+    #     serializer=ContactSerializer(contact,many=True)
+    #     return Response(serializer.data)
 
 
 from . exchange_rates import get_rates
@@ -74,3 +76,6 @@ def get_rates_list(request):
         # print(v)
 
     return JsonResponse({"exchange_rates":data}) #json.loads(data)})
+
+def portfolio(request):
+    return render(request,'baseapp/base.html', )

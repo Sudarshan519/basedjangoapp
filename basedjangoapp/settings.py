@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'baseapp',
     'rest_framework',
     'rest_framework.authtoken',
-    'drf_yasg'
+    'drf_yasg',
+    'banners'
     
 ]
 
@@ -143,16 +144,18 @@ USE_TZ = True
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 # STATIC_URL = "/static/"
-# if DEBUG:
-#     STATICFILES_DIRS = [
-#         os.path.join(BASE_DIR, 'static'),
+if DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),
 
-#     ]
+    ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # else:
 #     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",
 # ]
@@ -174,4 +177,9 @@ CACHES = {
         "BACKEND": "django.core.cache.backends.db.DatabaseCache",
         "LOCATION": "my_cache_table",
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
 }

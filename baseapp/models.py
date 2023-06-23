@@ -4,9 +4,13 @@ from django.utils.translation import gettext_lazy as _
 class Contact(models.Model):
     email = models.CharField(max_length=256,)
     message = models.CharField(max_length=256)
-
+    # created_at= models.DateTimeField(auto_now_add=True,blank=True,null=True)
     def __str__(self) -> str:
         return self.email
+    # class Meta:
+    # #     pass
+    #     ordering=('latest')
+        
     
 class CurrencyRate(models.Model):
     created_at=models.DateTimeField(_("Created Date"), auto_now=False, auto_now_add=True,null=True)
@@ -18,4 +22,4 @@ class CurrencyRate(models.Model):
     sell=models.FloatField(_("Sell"))
     # def __str__(self):
     #     return f'{self.name} {self.created_at} {self.updated_at} {self.name} {self.buy} {self.sell}'
-    
+

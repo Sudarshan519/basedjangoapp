@@ -27,5 +27,6 @@ urlpatterns = [
     path('contact/',views.contactSubmit),
     path('api/v1/contacts',  (views.AllContacts.as_view())),
     path('get_rates_list',views.get_rates_list),
+     path('portfolio',views.portfolio),
     # path('api/v1/contacts', cache_page(60 * 15)(views.AllContacts.as_view()))
 ]

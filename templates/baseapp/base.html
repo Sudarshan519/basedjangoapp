@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Your Portfolio</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'baseapp/style.css' %}">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h1>Welcome to Your Portfolio</h1>
+        <p>Showcasing your amazing work</p>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Add a brief introduction about yourself and your skills</p>
+    </section>
+
+    <section id="portfolio">
+        <h2>Portfolio</h2>
+        <div class="project">
+            <img src="project1.jpg" alt="Project 1">
+            <h3>Project 1</h3>
+            <p>Description of Project 1</p>
+        </div>
+        <div class="project">
+            <img src="project2.jpg" alt="Project 2">
+            <h3>Project 2</h3>
+            <p>Description of Project 2</p>
+        </div>
+        <!-- Add more project items as needed -->
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>Include your contact information here</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Your Portfolio. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
