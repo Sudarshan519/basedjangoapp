@@ -23,10 +23,10 @@ urlpatterns = [
                re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('',views.index,name="index"),
+    path('',views.portfolio,name="index"),
     path('contact/',views.contactSubmit),
     path('api/v1/contacts',  (views.AllContacts.as_view())),
     path('get_rates_list',views.get_rates_list),
-     path('portfolio',views.portfolio),
+     path('app',views.index),
     # path('api/v1/contacts', cache_page(60 * 15)(views.AllContacts.as_view()))
 ]
