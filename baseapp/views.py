@@ -18,15 +18,15 @@ def index(request):
 def contactSubmit(request):
     i=0
     contactlist=[]
-    while i<10000:
-        i+=1
-        contact=Contact()
-        contact.email=request.POST['email']
-        contact.message=(request.POST['message'])
-        # contact.save()ser
-        contactlist.append(contact)
+    # while i<10000:
+        # i+=1
+    contact=Contact()
+    contact.email=request.POST['email']
+    contact.message=(request.POST['message'])
+    contact.save()
+    contactlist.append(contact)    
         # contactlist=Contact.objects.all().order_by('-id')[:10]
-    Contact.objects.bulk_create(contactlist)
+    # Contact.objects.bulk_create(contactlist)
     # 
     # return redirect("index", )
 # {"message":"Your message have been saved successfully"}
