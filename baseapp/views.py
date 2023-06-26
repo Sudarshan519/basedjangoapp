@@ -30,7 +30,7 @@ def contactSubmit(request):
     # 
     # return redirect("index", )
 # {"message":"Your message have been saved successfully"}
-    return render(request,'baseapp/index.html',{"contacts":contactlist,"message":"Your message have been saved successfully"})
+    return render(request,'baseapp/base.html',{"contacts":contactlist,"message":"Your message have been saved successfully"})
 # @cache_page(60 * 15, cache="special_cache")
 class AllContacts(generics.ListAPIView):
         queryset=Contact.objects.all()#[:100]

@@ -31,7 +31,14 @@
             </ul>
         </nav>
     </header>
+    {% if message %}
+    <div class="card">
 
+        {{message}}
+    </div>
+    {% else %}
+
+    {% endif %}
 
 
     <!-- /// -->
@@ -339,13 +346,17 @@
             <div>
                 <h2>Leave a message:</h2>
             </div>
-            <form action="/postcreate/" method="post">
+            <form action="/contact/" method="post">
                 {% csrf_token %}
                 <br>
                 <div>Email:</div>
-                <input type="text" name="work" required><br><br>
+                <input type="text" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+                    placeholder="Enter email" required>
+                <!-- <input type="text" id="email" name="work" required><br><br> -->
                 <div>Enter your message:</div>
-                <textarea rows="5" cols="40" name="progress" required></textarea>
+                <input type="text" class="form-control" id="message" name="message" aria-describedby=""
+                    placeholder="Enter email">
+                <!-- <textarea rows="5" cols="40" name="progress" required id="message"></textarea> -->
                 <br><br>
 
                 <!-- <input type="file" name="files[]" id="files"> -->
@@ -371,6 +382,7 @@
 
     </div>
     <script>
+
         let slideIndex = 1;
         let running = false;
         showSlides(slideIndex);
@@ -420,6 +432,7 @@
 
         // When the user clicks on the button, open the modal
         btn.onclick = function () {
+
             modal.style.display = "block";
         }
 
