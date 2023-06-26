@@ -25,7 +25,7 @@ urlpatterns = [
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('',views.portfolio,name="index"),
     path('contact/',views.contactSubmit),
-    path('api/v1/contacts',  (views.AllContacts.as_view())),
+    path('api/v1/contacts/',  (views.AllContacts.as_view())),
     path('get_rates_list',views.get_rates_list),
      path('app',views.index),
     # path('api/v1/contacts', cache_page(60 * 15)(views.AllContacts.as_view()))
