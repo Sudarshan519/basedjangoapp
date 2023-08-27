@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_yasg',
     'banners',
-    'userr'
+    'userr',
+    'website',
+     'corsheaders',
     
 ]
 
@@ -81,32 +83,31 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'basedjangoapp.wsgi.application'
-
 import os
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    
-    'default':
-        
-        {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get("POSTGRES_DATABASE"),
-        'USER': os.environ.get("POSTGRES_USER"),
-        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-        'HOST': os.environ.get("POSTGRES_HOST"),
-        'PORT': os.environ.get("POSTGRES_PORT"),
-    }
-}
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
     
+#     'default':
+        
+#         {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.environ.get("POSTGRES_DATABASE"),
+#         'USER': os.environ.get("POSTGRES_USER"),
+#         'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
+#         'HOST': os.environ.get("POSTGRES_HOST"),
+#         'PORT': os.environ.get("POSTGRES_PORT"),
+#     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+    
+}
 
 
 # Password validation
@@ -173,12 +174,12 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "my_cache_table",
-    }
-}
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+#         "LOCATION": "my_cache_table",
+#     }
+# }
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
