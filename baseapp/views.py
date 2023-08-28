@@ -78,4 +78,4 @@ def get_rates_list(request):
     return JsonResponse({"exchange_rates":data}) #json.loads(data)})
 
 def portfolio(request):
-    return render(request,'baseapp/base.html', )
+    return render(request,'index.html', )

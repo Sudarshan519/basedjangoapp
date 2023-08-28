@@ -14,7 +14,8 @@ class SiteViewSet(viewsets.ModelViewSet):
         """
         Instantiates and returns the list of permissions that this view requires.
         """
-        if self.action == 'retrive':
+        print(self.action)
+        if self.action == 'retrieve' or  self.action=='list':
             permission_classes = [permissions.AllowAny]
         else:
             permission_classes = [permissions.IsAdminUser]

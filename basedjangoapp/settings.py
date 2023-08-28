@@ -186,4 +186,4 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100
 }
 
-# AUTH_USER_MODEL = 'userr.CustomUser' # Add this
+AUTH_USER_MODEL = 'userr.CustomUser' # Add this
