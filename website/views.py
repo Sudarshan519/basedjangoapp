@@ -10,15 +10,19 @@ from website.serializer import SiteSettingsSerializer
 class SiteViewSet(viewsets.ModelViewSet):
     queryset = SiteSettingsData.objects.all()
     serializer_class = SiteSettingsSerializer
-    def get_permissions(self):
-        """
-        Instantiates and returns the list of permissions that this view requires.
-        """
-        if self.action == 'retrive':
-            permission_classes = [permissions.AllowAny]
-        else:
-            permission_classes = [permissions.IsAdminUser]
-        return [permission() for permission in permission_classes]
+    # def get_permissions(self):
+    #     """
+    #     Instantiates and returns the list of permissions that this view requires.
+    #     """
+    #     print(self.action)
+    #     if self.action=='list':
+    #         permission_classes = [permissions.AllowAny]
+    #     if self.action == 'retrive':
+    #         permission_classes = [permissions.AllowAny]
+    #     else:
+    #         permission_classes = [permissions.IsAdminUser]
+    #         permission_classes = [permissions.AllowAny]
+    #     return [permission() for permission in permission_classes]
 
 
 class SettingsViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
@@ -40,3 +44,28 @@ class SettingsViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
         serializer = self.get_serializer(obj)
 
         return Response(serializer.data)
+    
+from drf_yasg.utils import swagger_auto_schema 
+from rest_framework.decorators import api_view
+from rest_framework.request import Request
+from drf_yasg import openapi
+@swagger_auto_schema(methods=['get'], operation_description="description", manual_parameters=[
+    # openapi.Parameter('category', openapi.IN_QUERY, "category1, category2, category3", type=openapi.TYPE_STRING),
+    # openapi.Parameter('name', openapi.IN_QUERY, "full name", type=openapi.TYPE_STRING),
+], responses={
+    200: openapi.Response('Response', SiteSettingsSerializer),
+}, tags=['Site Setting'])
+# @swagger_auto_schema(tags=['user'],method='GET', operation_description='',request_body=SiteSettingsSerializer)
+@api_view(['GET' ])
+def sitedetail(request):
+    """
+    List all code snippets, or create a new snippet.
+    """
+    serializer_context = {
+    'request':  (request),
+    }
+    # last_object = Object.objects.order_by('-timestamp_field').last()
+
+    snippets = SiteSettingsData.objects.latest('id')
+    serializer = SiteSettingsSerializer(snippets, many=False,context=serializer_context)
+    return Response(serializer.data)
