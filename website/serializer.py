@@ -37,7 +37,21 @@ class SiteSettingsSerializer(serializers.HyperlinkedModelSerializer):
         model= SiteSettingsData 
         fields="__all__"
         include=('id')
-    
+    def update(self, instance, validated_data):
+        whyus = validated_data.pop('whyus')
+        steps=validated_data.pop('steps')
+        whatyoucando=validated_data.pop('whatyoucando')
+        terms=validated_data.pop('terms')
+        site=instance
+        for whyus_data in whyus:
+            WhyChooseUs.objects.create(sitesetting=site,**whyus_data)
+        for steps_data in steps:
+            StepsToStartUp.objects.create(sitesetting=site,**steps_data)
+        for what_you_can_do_data in whatyoucando:
+            WhatYouCanDo.objects.create(sitesetting=site,**what_you_can_do_data)
+        for terms_data in terms:
+            TermsAndConditions.objects.create(sitesetting=site,**terms_data)
+        return site
     def create(self, validated_data):
         whyus = validated_data.pop('whyus')
         steps=validated_data.pop('steps')
