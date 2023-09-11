@@ -18,4 +18,4 @@ class TVSeriesSerializer(serializers.ModelSerializer):
     class Meta:
         model=TVSeries
         fields=['id','title',"episode"]
- git
+ 
