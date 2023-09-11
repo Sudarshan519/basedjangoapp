@@ -1,0 +1,22 @@
+Configuring static files¶
+
+Make sure that django.contrib.staticfiles is included in your INSTALLED_APPS.
+
+In your settings file, define STATIC_URL, for example:
+
+STATIC_URL = "static/"
+In your templates, use the static template tag to build the URL for the given relative path using the configured staticfiles STORAGES alias.
+
+{% load static %}
+<img src="{% static 'my_app/example.jpg' %}" alt="My image">
+Store your static files in a folder called static in your app. For example my_app/static/my_app/example.jpg.
+
+Serving the files
+
+In addition to these configuration steps, you’ll also need to actually serve the static files.
+
+During development, if you use django.contrib.staticfiles, this will be done automatically by runserver when DEBUG is set to True (see django.contrib.staticfiles.views.serve()).
+
+This method is grossly inefficient and probably insecure, so it is unsuitable for production.
+
+See How to deploy static files for proper strategies to se
