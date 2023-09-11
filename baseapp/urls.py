@@ -29,5 +29,6 @@ urlpatterns = [
     path('get_rates_list',views.get_rates_list),
      path('app',views.index),
        path('',include('website.urls')),
+       path('',include('streaming_app.urls'))
     # path('api/v1/contacts', cache_page(60 * 15)(views.AllContacts.as_view()))
 ]
