@@ -1,5 +1,7 @@
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.db import models
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
 # users/models.py
 from django.contrib.auth.base_user import BaseUserManager
 # class Employer(AbstractUser):
@@ -54,12 +56,12 @@ class Employee(models.Model):
 #             )
 
 #         return self._create_user(email, password, **extra_fields)
+from django.contrib.auth.models import AbstractUser
+class CustomUser(AbstractUser):
+    email = models.EmailField("email address", unique=True)
 
-# class CustomUser(AbstractUser):
-#     email = models.EmailField("email address", unique=True)
-
-#     USERNAME_FIELD = "email" # make the user log in with the email
-#     REQUIRED_FIELDS = ["username"]
+    USERNAME_FIELD = "email" # make the user log in with the email
+    REQUIRED_FIELDS = ["username"]
 
 #     objects = CustomUserManager()
 # class User(AbstractUser):

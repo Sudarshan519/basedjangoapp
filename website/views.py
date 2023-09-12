@@ -10,19 +10,16 @@ from website.serializer import SiteSettingsSerializer
 class SiteViewSet(viewsets.ModelViewSet):
     queryset = SiteSettingsData.objects.all()
     serializer_class = SiteSettingsSerializer
-    # def get_permissions(self):
-    #     """
-    #     Instantiates and returns the list of permissions that this view requires.
-    #     """
-    #     print(self.action)
-    #     if self.action=='list':
-    #         permission_classes = [permissions.AllowAny]
-    #     if self.action == 'retrive':
-    #         permission_classes = [permissions.AllowAny]
-    #     else:
-    #         permission_classes = [permissions.IsAdminUser]
-    #         permission_classes = [permissions.AllowAny]
-    #     return [permission() for permission in permission_classes]
+    def get_permissions(self):
+        """
+        Instantiates and returns the list of permissions that this view requires.
+        """
+        print(self.action)
+        if self.action == 'retrieve' or  self.action=='list':
+            permission_classes = [permissions.AllowAny]
+        else:
+            permission_classes = [permissions.IsAdminUser]
+        return [permission() for permission in permission_classes]
 
 
 class SettingsViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):

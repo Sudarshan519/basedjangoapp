@@ -11,7 +11,7 @@ from rest_framework import generics
 # Create your views here.
 def index(request): 
     contactlist=Contact.objects.all()[:100]
-
+    return render(request,'admin/index.html',{"contacts":contactlist})
     return render(request,'baseapp/index.html',{"contacts":contactlist})
 
 @csrf_exempt
@@ -78,4 +78,4 @@ def get_rates_list(request):
     return JsonResponse({"exchange_rates":data}) #json.loads(data)})
 
 def portfolio(request):
-    return render(request,'baseapp/base.html', )
+    return render(request,'index.html', )
