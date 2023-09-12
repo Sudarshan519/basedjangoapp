@@ -11,7 +11,7 @@ from rest_framework import generics
 # Create your views here.
 def index(request): 
     contactlist=Contact.objects.all()[:100]
-    return render(request,'admin/index.html',{"contacts":contactlist})
+    # return render(request,'admin/index.html',{"contacts":contactlist})
     return render(request,'baseapp/index.html',{"contacts":contactlist})
 
 @csrf_exempt

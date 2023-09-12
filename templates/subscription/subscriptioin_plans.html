@@ -1,0 +1,14 @@
+<h1>Available Subscription Plans</h1>
+<ul>
+    {% for plan in plans %}
+    <li>
+        <h2>{{ plan.name }}</h2>
+        <p>{{ plan.description }}</p>
+        <p>Price: ${{ plan.price }}</p>
+        <form method="post" action="{% url 'subscribe' plan.id %}">
+            {% csrf_token %}
+            <button type="submit">Subscribe</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>

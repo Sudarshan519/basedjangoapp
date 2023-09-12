@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import render
 from rest_framework import permissions
 from website.models import SiteSettingsData
@@ -62,7 +62,10 @@ def sitedetail(request):
     'request':  (request),
     }
     # last_object = Object.objects.order_by('-timestamp_field').last()
+    try:
 
-    snippets = SiteSettingsData.objects.latest('id')
-    serializer = SiteSettingsSerializer(snippets, many=False,context=serializer_context)
-    return Response(serializer.data)
+        snippets = SiteSettingsData.objects.latest('id')
+        serializer = SiteSettingsSerializer(snippets, many=False,context=serializer_context)
+        return Response(serializer.data)
+    except ValueError as e:
+        return JsonResponse({"detail":str(e)})
