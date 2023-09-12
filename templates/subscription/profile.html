@@ -1,0 +1,11 @@
+<h1>Welcome, {{ user.username }}!</h1>
+<h2>Your Subscriptions:</h2>
+<ul>
+    {% for subscription in subscriptions %}
+    <li>
+        <h3>{{ subscription.plan.name }}</h3>
+        <p>Start Date: {{ subscription.start_date }}</p>
+        <p>End Date: {{ subscription.end_date }}</p>
+    </li>
+    {% endfor %}
+</ul>
