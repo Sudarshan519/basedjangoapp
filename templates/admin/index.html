@@ -1,0 +1,659 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Japanese Manners
+    </title>
+    <!-- Custom fonts for this template-->
+    <link href="{% static '/admin_dashboard/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet"
+        type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="{% static '/admin_dashboard/css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet">
+    <link href="{% static '/admin_dashboard/css/bootstrap.min.css' %} " rel="stylesheet">
+    <link href="{% static '/admin_dashboard/css/custom.css' %} " rel="stylesheet">
+    <style>
+        .select2-selection__rendered {
+            line-height: 32px !important;
+        }
+
+        .select2-selection {
+            height: 34px !important;
+        }
+
+        .select2-selection__arrow {
+            height: 34px !important;
+        }
+
+        .toast {
+            opacity: 1 !important;
+        }
+
+        sup {
+            color: red
+        }
+    </style>
+
+
+    <link rel="stylesheet" type="text/css"
+        href="{% static '/admin_dashboard/vendor/datatables/dataTables.bootstrap4.css' %}">
+
+</head>
+
+<body id="page-top">
+    <div class="loading" style="display: none;">
+        <i class="fas fa-spinner fa-spin"></i>
+    </div>
+    <div class="d-flex flex-column">
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light topbar static-top shadow" style="background-color: #fff">
+            <a href="/admin/">
+                <img class="img-profile mr-3" src="{% static '/admin_dashboard/img/logo-BNPJ.png' %} "
+                    style="height:50px">
+            </a>
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
+            <!-- Topbar Search -->
+            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                        aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn" style="background-color: rgb(255, 255, 255);" type="button">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Nav Item - Alerts -->
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-bell fa-fw"></i>
+                        <!-- Counter - Alerts -->
+                        <span class="badge badge-danger badge-counter">0</span>
+                    </a>
+                    <!-- Dropdown - Alerts -->
+                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="alertsDropdown">
+                        <h6 class="dropdown-header">
+                            Notification
+                        </h6>
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                            <div class="mr-3">
+                                <div class="icon-circle bg-success">
+                                    <i class="fas fa-tachometer-alt text-white"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="small text-gray-500">Today</div>
+                                Welcome to the dashboard
+                            </div>
+                        </a>
+                        <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                    </div>
+                </li>
+                <div class="topbar-divider d-none d-sm-block"></div>
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline small">nitv@admin.com</span>
+                        <img class="img-profile rounded-circle" src="{% static '/admin_dashboard/img/avatar2.png' %}">
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
+                        <!--            <a class="dropdown-item" href="#">-->
+                        <!--              <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                        <!--              Profile-->
+                        <!--            </a>-->
+                        <!--            <a class="dropdown-item" href="#">-->
+                        <!--              <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                        <!--              Settings-->
+                        <!--            </a>-->
+                        <!--            <a class="dropdown-item" href="#">-->
+                        <!--              <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>-->
+                        <!--              Activity Log-->
+                        <!--            </a>-->
+                        <!--            <div class="dropdown-divider"></div>-->
+                        <a class="dropdown-item" href="/admin/logout">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <!-- End of Topbar -->
+    </div>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav sidebar sidebar-light accordion" style="background-color: #f8f9fc;" id="accordionSidebar">
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                <img class="img-profile rounded-circle" src="/static/admin_dashboard/img/avatar2.png"
+                    style="height: 30px; width: 30px;">
+                <span class="ml-2 d-none d-lg-inline small" style="overflow:auto">nitv@admin.com</span>
+            </a>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Dashboard -->
+
+            <li class="nav-item ">
+                <a class="nav-link" href="/admin/">
+                    <i class="fas fa-fw fa-tachometer-alt" style=""></i>
+                    <span style="">Dashboard</span>
+                </a>
+            </li>
+
+
+            <!-- Divider -->
+
+            <li class="nav-item ">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapSetting"
+                    aria-expanded="true" aria-controls="collapReport">
+                    <i class="fas fa-exchange-alt" style=""></i>
+                    <span style="">Settings</span>
+                </a>
+                <div id="collapSetting" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/universal_exchange/show">Exchange Rate</a>
+                        <a class="collapse-item" href="/admin/utility_payments/show">Utility Payments</a>
+                        <a class="collapse-item" href="/admin/pages/show">Static Pages</a>
+                        <a class="collapse-item" href="/admin/pages/contact/add_edit/contact-us">Contact Us Page</a>
+                        <a class="collapse-item" href="/admin/static_banners/show">Static Banners</a>
+                        <a class="collapse-item" href="/admin/contact_messages/show">Contact Form Messages</a>
+                        <a class="collapse-item" href="/admin/version_check/show">Manage Versions</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Services Collapse Menu -->
+            <li class="nav-item ">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseServices"
+                    aria-expanded="true" aria-controls="collapseServices">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Services</span>
+                </a>
+                <div id="collapseServices" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/merchant/">Merchants</a>
+                        <a class="collapse-item" href="/admin/service_category/show">Service Category</a>
+                        <a class="collapse-item" href="/admin/availableservice/show">Services</a>
+                        <a class="collapse-item" href="/admin/service_packages/show">Service Packages</a>
+                        <a class="collapse-item" href="/admin/availableservice/package_purchases/show">Package
+                            Purchases</a>
+                    </div>
+                </div>
+            </li>
+
+
+            <!-- Nav Item - JP Manner Collapse Menu -->
+            <li class="nav-item ">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapJPmanner"
+                    aria-expanded="true" aria-controls="collapJPmanner">
+                    <i class="fas fa-user-tie"></i>
+                    <span>JP Manner</span>
+                </a>
+                <div id="collapJPmanner" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/category/show">JP Manner Category</a>
+                        <a class="collapse-item" href="/admin/jp_manner/show">Japanese Manners</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Remit Collapse Menu -->
+            <li class="nav-item ">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapRemit"
+                    aria-expanded="true" aria-controls="collapRemit">
+                    <i class="fas fa-server"></i>
+                    <span>Remit Service</span>
+                </a>
+                <div id="collapRemit" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/remit_service/show">Remit Services</a>
+                        <a class="collapse-item" href="/admin/remit_service/service_charge_exchange/add">Bulk Add Remit
+                            Service Charge</a>
+                        <a class="collapse-item" href="/admin/remit_service/service_bulk_exchange/add">Bulk Add Remit
+                            Exchange Rate</a>
+                        <a class="collapse-item" href="/admin/remit_service_charge/show">Remit Service Charges</a>
+                        <a class="collapse-item" href="/admin/remit_service_exchange/show">Remit Service Exchange
+                            Rates</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/admin/notifications/show">
+                    <i class="fas fa-bell" style=""></i>
+                    <span style="">Notifications</span>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapCoupon"
+                    aria-expanded="true" aria-controls="collapCoupon">
+                    <i class="fas fa-gift"></i>
+                    <span>Coupons / Rewards</span>
+                </a>
+                <div id="collapCoupon" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/coupon_codes/show">Coupon Codes</a>
+                        <a class="collapse-item" href="/admin/reward_point_usage/show">Reward Point Usage</a>
+                    </div>
+                </div>
+            </li>
+            <!-- <li class="nav-item ">
+				<a class="nav-link" href="/admin/utility_payments/show">
+					<i class="fas fa-gift"
+						style=""></i>
+					<span style="">Utility Payments</span>
+				</a>
+			</li> -->
+            <li class="nav-item ">
+                <a class="nav-link" href="/admin/user/show">
+                    <i class="fas fa-fw fa-user" style=""></i>
+                    <span style="">Customers</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Reports Collapse Menu -->
+            <li class="nav-item ">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapReport"
+                    aria-expanded="true" aria-controls="collapReport">
+                    <i class="fas fa-file-excel"></i>
+                    <span>Reports</span>
+                </a>
+                <div id="collapReport" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/topup/esewa/log">Esewa Report</a>
+                        <a class="collapse-item" href="/admin/topup/stripe/log">Stripe Report</a>
+                        <a class="collapse-item" href="/admin/topup/imepay/log">Imepay Report</a>
+                        <a class="collapse-item" href="/admin/topup/khalti/log">Khalti Report</a>
+                        <a class="collapse-item" href="/admin/topup/prabhupay/log">Prabhupay Report</a>
+                        <a class="collapse-item" href="/admin/transaction/log">Transaction Report</a>
+                        <a class="collapse-item" href="/admin/transaction/revenue_view">Revenue Report</a>
+                        <a class="collapse-item" href="/admin/user/activities/show">User Activity Report</a>
+                        <a class="collapse-item" href="/admin/statements/show">User Reward Report</a>
+                        <a class="collapse-item" href="/admin/coupon_codes/redeem/show">Coupon Redeem Report</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapCreditServices"
+                    aria-expanded="true" aria-controls="collapCreditServices">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Credit Services</span>
+                </a>
+                <div id="collapCreditServices" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/credit_services/show">Credit Services</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapBNPJSettings"
+                    aria-expanded="true" aria-controls="collapBNPJSettings">
+                    <i class="fas fa-user-tie"></i>
+                    <span>BNPJ Settings</span>
+                </a>
+                <div id="collapBNPJSettings" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/bnpj_settings/show">BNPJ Settings</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" href="/admin/api_error_log/log">
+                    <i class="fas fa-flag" style=""></i>
+                    <span style="">API Error Report</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Ecsite -->
+            <li class="nav-item active ">
+                <a class="nav-link">
+                    <i class="fa fa-shopping-cart" style="color: #1886c1"></i>
+                    <span>Ec-Site</span>
+                </a>
+            </li>
+            <!-- Vendor -->
+            <li class="nav-item ">
+                <a class="nav-link" href="/admin/vendor/show">
+                    <i class="fas fa-fw fa-user" style=""></i>
+                    <span style="">Vendor</span>
+                </a>
+            </li>
+
+            <!-- Product -->
+            <li class="nav-item ">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapeProduct"
+                    aria-expanded="true" aria-controls="collapeProduct">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Product</span>
+                </a>
+                <div id="collapeProduct" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/product/category_show">Product-Category</a>
+                        <a class="collapse-item" href="/admin/product/product_show">Product</a>
+                    </div>
+                </div>
+            </li>
+
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0 bg-light" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content" style="background-color: white;">
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid pt-4">
+
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Remit Services</h1>
+                    </div>
+                    <div class="text-right button-right">
+                        <a href="create" class="btn btn-primary btn-sm">Add New Remit Service</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                            <div class="dataTables_length" id="dataTable_length"><label>Show <select
+                                                        name="dataTable_length" aria-controls="dataTable"
+                                                        class="custom-select custom-select-sm form-control form-control-sm">
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                    </select> entries</label></div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input
+                                                        type="search" class="form-control form-control-sm"
+                                                        placeholder="" aria-controls="dataTable"></label></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table table-striped table-hover datatable dataTable no-footer"
+                                                id="dataTable" width="100%" cellspacing="10" role="grid"
+                                                aria-describedby="dataTable_info" style="width: 100%;">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th class="sorting_desc" tabindex="0" aria-controls="dataTable"
+                                                            rowspan="1" colspan="1" style="width: 63px;"
+                                                            aria-sort="descending"
+                                                            aria-label="Created At: activate to sort column ascending">
+                                                            Created At</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="dataTable"
+                                                            rowspan="1" colspan="1" style="width: 46px;"
+                                                            aria-label="Name: activate to sort column ascending">Name
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="dataTable"
+                                                            rowspan="1" colspan="1" style="width: 82px;"
+                                                            aria-label="Logo: activate to sort column ascending">Logo
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="dataTable"
+                                                            rowspan="1" colspan="1" style="width: 49px;"
+                                                            aria-label="Is Active: activate to sort column ascending">Is
+                                                            Active</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="dataTable"
+                                                            rowspan="1" colspan="1" style="width: 58px;"
+                                                            aria-label="Priority: activate to sort column ascending">
+                                                            Priority</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1"
+                                                            style="width: 59px;" aria-label="Actions">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr role="row" class="odd">
+                                                        <td class="sorting_1">02 July 2021</td>
+                                                        <td>City Express Money Transfer</td>
+                                                        <td><img src="/media/LOGO_FOR_PRINT_PURPOSE.jpg&quot;"
+                                                                width="100"></td>
+                                                        <td>true</td>
+                                                        <td>2</td>
+                                                        <td><a href="edit/15"><span
+                                                                    class="glyphicon glyphicon-pencil">Edit</span></a> |
+                                                            <a href="javascript:void(0);" data-url="delete/15"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr role="row" class="even">
+                                                        <td class="sorting_1">02 July 2021</td>
+                                                        <td>FOREX Japan</td>
+                                                        <td><img src="/media/white_logo_002.JPG&quot;" width="100"></td>
+                                                        <td>true</td>
+                                                        <td>3</td>
+                                                        <td><a href="edit/14"><span
+                                                                    class="glyphicon glyphicon-pencil">Edit</span></a> |
+                                                            <a href="javascript:void(0);" data-url="delete/14"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr role="row" class="odd">
+                                                        <td class="sorting_1">02 June 2021</td>
+                                                        <td>Central Bank Of Nepal</td>
+                                                        <td><img src="/media/Nepal_rastra_bank_logo.png&quot;"
+                                                                width="100"></td>
+                                                        <td>true</td>
+                                                        <td>1</td>
+                                                        <td><a href="edit/6"><span
+                                                                    class="glyphicon glyphicon-pencil">Edit</span></a> |
+                                                            <a href="javascript:void(0);" data-url="delete/6"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr role="row" class="even">
+                                                        <td class="sorting_1">02 June 2021</td>
+                                                        <td>Western Union</td>
+                                                        <td><img src="/media/Western-Union-Logo_mnP4NTQ_5JBMaWF.png&quot;"
+                                                                width="100"></td>
+                                                        <td>true</td>
+                                                        <td>4</td>
+                                                        <td><a href="edit/5"><span
+                                                                    class="glyphicon glyphicon-pencil">Edit</span></a> |
+                                                            <a href="javascript:void(0);" data-url="delete/5"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr role="row" class="odd">
+                                                        <td class="sorting_1">02 June 2021</td>
+                                                        <td>IME</td>
+                                                        <td><img src="/media/ime_dzSCNPL.png&quot;" width="100"></td>
+                                                        <td>false</td>
+                                                        <td>3</td>
+                                                        <td><a href="edit/4"><span
+                                                                    class="glyphicon glyphicon-pencil">Edit</span></a> |
+                                                            <a href="javascript:void(0);" data-url="delete/4"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr role="row" class="even">
+                                                        <td class="sorting_1">02 June 2021</td>
+                                                        <td>Prabhu</td>
+                                                        <td><img src="/media/prabhu-money-transfer_RMqqIeQ.png&quot;"
+                                                                width="100"></td>
+                                                        <td>false</td>
+                                                        <td>0</td>
+                                                        <td><a href="edit/3"><span
+                                                                    class="glyphicon glyphicon-pencil">Edit</span></a> |
+                                                            <a href="javascript:void(0);" data-url="delete/3"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div id="dataTable_processing" class="dataTables_processing card"
+                                                style="display: none;">Processing...</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-5">
+                                            <div class="dataTables_info" id="dataTable_info" role="status"
+                                                aria-live="polite">Showing 1 to 6 of 6 entries</div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-7">
+                                            <div class="dataTables_paginate paging_simple_numbers"
+                                                id="dataTable_paginate">
+                                                <ul class="pagination">
+                                                    <li class="paginate_button page-item previous disabled"
+                                                        id="dataTable_previous"><a href="#" aria-controls="dataTable"
+                                                            data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                                                    </li>
+                                                    <li class="paginate_button page-item active"><a href="#"
+                                                            aria-controls="dataTable" data-dt-idx="1" tabindex="0"
+                                                            class="page-link">1</a></li>
+                                                    <li class="paginate_button page-item next disabled"
+                                                        id="dataTable_next"><a href="#" aria-controls="dataTable"
+                                                            data-dt-idx="2" tabindex="0" class="page-link">Next</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Confirmation Box</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                    <a href="" id="delete-record"><button type="button"
+                                            class="btn btn-primary">Yes</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static '/admin_dashboard/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static '/admin_dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{% static '/admin_dashboard/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="{% static '/admin_dashboard/js/sb-admin-2.min.js' %}"></script>
+    <!-- Page level plugins -->
+    <script src="{% static '/admin_dashboard/vendor/chart.js/Chart.min.js' %}"></script>
+    <!-- Page level custom scripts -->
+    <script src="{% static '/admin_dashboard/js/demo/chart-area-demo.js' %}"></script>
+    <script src="{% static '/admin_dashboard/js/demo/chart-pie-demo.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        media="all">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $('.select2').select2();
+            $('.loading').hide();
+        });
+    </script>
+
+
+    <script type="text/javascript"
+        src="{% static '/admin_dashboard/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript"
+        src="{% static '/admin_dashboard/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            var oTable = $('#dataTable').dataTable({
+                "processing": true,
+                "serverSide": true,
+                "iDisplayLength": 25,
+                "ajax": "/admin/remit_service/datatable/data",
+                "order": [[0, "desc"]],
+                "columnDefs": [
+                    { "orderable": false, "targets": 5 }
+                ]
+            });
+
+            $('#exampleModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var url = button.data('url') // Extract info from data-* attributes
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                var modal = $(this)
+                modal.find('#delete-record').attr('href', url)
+            })
+        });
+    </script>
+
+
+
+
+
+</body>
+
+</html>
