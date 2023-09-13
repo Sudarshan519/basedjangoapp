@@ -10,7 +10,7 @@ class EpisodeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=Episode
-        fields=("id","label","tv_show","desc")
+        fields=("id","label","tv_show","desc","movie_path")
 
         
 class TVSeriesSerializer(serializers.ModelSerializer):

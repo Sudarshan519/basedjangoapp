@@ -54,3 +54,16 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')  # Redirect to the login page after logout
+
+from rest_framework import viewsets
+from .models import *
+from .serializers import *
+class PlanViewSet(viewsets.ModelViewSet):
+    queryset=Plan.objects.all()
+    serializer_class=PlanSerializer
+
+
+class SubscriptionViewSet(viewsets.ModelViewSet):
+    # episode=SubscriptionSerializer(many=True,read_only=True)
+    queryset = Subscription.objects.all()
+    serializer_class = SubscriptionSerializer

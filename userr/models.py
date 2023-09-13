@@ -59,7 +59,8 @@ class Employee(models.Model):
 from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     email = models.EmailField("email address", unique=True)
-
+    counter = models.IntegerField(default=0, blank=False)
+    email_verified=models.BooleanField(blank=False,default=False)
     USERNAME_FIELD = "email" # make the user log in with the email
     REQUIRED_FIELDS = ["username"]
 
