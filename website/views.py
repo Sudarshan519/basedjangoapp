@@ -67,5 +67,7 @@ def sitedetail(request):
         snippets = SiteSettingsData.objects.latest('id')
         serializer = SiteSettingsSerializer(snippets, many=False,context=serializer_context)
         return Response(serializer.data)
-    except ValueError as e:
-        return JsonResponse({"detail":str(e)})
+    except Exception as e:
+        return JsonResponse({
+            "status_code":"500",
+            "detail":"No Site settings found"})

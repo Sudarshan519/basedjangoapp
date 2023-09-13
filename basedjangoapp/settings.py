@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'userr',
     'website',
      'corsheaders',
-     'streaming_app'
+     'streaming_app',
+     'subscription'
     
 ]
 

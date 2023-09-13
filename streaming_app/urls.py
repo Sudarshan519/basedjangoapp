@@ -9,7 +9,10 @@ router = DefaultRouter()
 router.register('movies',views.MovieViewSet,basename="movies")
 router.register("tvshows",views.TVShowsViewSet,basename="tvshows")
 router.register("episode-list",views.EpisodesViewSet,basename="episode")
+
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
+    path("user",views.UserDashboard.as_view(),),
     path('streaming', include(router.urls)),
+     path('',include('userr.urls'))
 ]
