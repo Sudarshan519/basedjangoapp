@@ -69,8 +69,7 @@ class EpisodeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=Episode
-        fields="__all__"
-        # fields=("id","label","tv_show","desc")
+        fields=("id","label","tv_show","desc","movie_path")
     def perform_create(self, serializer):
             
             print(json.dumps(serializer))
@@ -96,3 +95,9 @@ class UserSerializer(serializers.ModelSerializer):
         model=CustomUser
         # fields='__all__'
         fields=('username','email','movies','tvshows')
+
+    
+
+class HomeSerializer(serializers.Serializer):
+    movies=MovieSerializer(many=True)
+    tvshows=TVSeriesSerializer(many=True)

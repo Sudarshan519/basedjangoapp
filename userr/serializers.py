@@ -4,6 +4,52 @@ from .models import *
 import django.contrib.auth.password_validation as validators
 from django.contrib.auth import authenticate
 
+
+class ChangePasswordSerializer(serializers.Serializer):
+    model = CustomUser
+
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    profileDocuments = serializers.HyperlinkedRelatedField(many=True, view_name='users:profileDocuments', read_only=True)
+    class Meta:
+        model = CustomUser
+        fields = [ 'id', 'email'#,'kyc_updated','emailVerified','profileDocuments'#, 'groups''username','url',
+        ]
+    def create(self, validated_data):
+        return super().create(validated_data)
+
+class GroupSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Group
+        fields = ['url', 'name']
+from django.contrib.auth.hashers import make_password
+
+class RegisterSerializer(serializers.ModelSerializer):   
+
+    class Meta:
+        model=CustomUser
+        fields=['email','password']
+        write_only_fields=['password']
+
+    def validate_password(self, data):
+            # validators.validate_password(password=data, user=User)
+            data=make_password(data)
+            return data
+
+class OtpSerializer(serializers.Serializer):
+    email=serializers.EmailField(label="Email")
+ 
+    
+class VerifyOtpSerializer(serializers.Serializer):
+    email=serializers.EmailField(label="Email",write_only=True)
+    otp=serializers.IntegerField(label="Otp")
+    
 class LoginSerializer(serializers.Serializer):  
 
     """
@@ -28,7 +74,7 @@ class LoginSerializer(serializers.Serializer):
         # Take username and password from request
         email = attrs.get('email')
         password = attrs.get('password')
-        
+        print(attrs)
         if email and password:
             # Try to authenticate the user using Django auth framework.
             user = authenticate(request=self.context.get('request'),
@@ -47,26 +93,27 @@ class LoginSerializer(serializers.Serializer):
         return attrs
  
 
-from django.contrib.auth.hashers import make_password
-class RegisterSerializer(serializers.ModelSerializer):   
+# from django.contrib.auth.hashers import make_password
+# class RegisterSerializer(serializers.ModelSerializer):   
 
-    class Meta:
-        model=CustomUser
-        fields=['email','password']
-        write_only_fields=['password']
+#     class Meta:
+#         model=CustomUser
+#         fields=['email','password']
+#         write_only_fields=['password']
 
-    def validate_password(self, data):
-            # validators.validate_password(password=data, user=User)
-            data=make_password(data)
-            return data
+#     def validate_password(self, data):
+#             # validators.validate_password(password=data, user=User)
+#             data=make_password(data)
+#             return data
 
-class VerifyOtpSerializer(serializers.Serializer):
-    email=serializers.EmailField(label="Email")
-    otp=serializers.CharField(label="Otp")
+# class VerifyOtpSerializer(serializers.Serializer):
+#     email=serializers.EmailField(label="Email")
+#     otp=serializers.CharField(label="Otp")
 
 
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=CustomUser
-        fields='__all__'
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model=CustomUser
+#         fields='__all__'
+  

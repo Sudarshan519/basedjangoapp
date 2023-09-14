@@ -30,6 +30,7 @@ class TVShowsViewSet(viewsets.ModelViewSet):
     episode=EpisodeSerializer(many=True,read_only=True)
     queryset = TVSeries.objects.all()
     serializer_class = TVSeriesSerializer
+    parser_classes = (FormParser, MultiPartParser)
 from rest_framework.views import APIView
 from rest_framework import permissions
 from django.http import HttpRequest
@@ -47,8 +48,22 @@ class UserDashboard(APIView):
 
         serializer=UserSerializer(request.user)
         return JsonResponse(serializer.data,safe=False)
-         
-
+from rest_framework.response import Response
+from rest_framework import generics
+class HomeAPI(generics.ListAPIView):
+    movies_queryset = Movie.objects.all()
+    tvshow_queryset = TVSeries.objects.all()
+    parser_classes = (FormParser, MultiPartParser)
+    def list(self, request, *args, **kwargs):
+        movie_serializer = MovieSerializer(self.movies_queryset, many=True)
+        tvshow_serializer = TVSeriesSerializer(self.tvshow_queryset, many=True)
+        
+        response_data = {
+            'movies': movie_serializer.data,
+            'tvshows': tvshow_serializer.data,
+        }
+        
+        return Response(response_data)
 # from rest_framework import mixins
 # class EpisodesViewSet( mixins.ListModelMixin,viewsets.GenericViewSet):
 #     # pass
