@@ -53,10 +53,15 @@ class MovieSerializer(serializers.ModelSerializer):
         # include=("download_path")
         # include=('download_path')
         # fields=[ "download_path"]
+
+class MoviePathSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model=Movie
+        fields=["movie_path"]
 class MovieSubscribedSerializer(serializers.ModelSerializer):
      class Meta:
         model=Movie
-        exclude=()
+        fields=("movie_path")
         # include=("donwload_path")
         # read_only=["download_path"]
     # def perform_create(self, serializer):

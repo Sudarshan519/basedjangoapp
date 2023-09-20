@@ -65,5 +65,5 @@ class PlanViewSet(viewsets.ModelViewSet):
 
 class SubscriptionViewSet(viewsets.ModelViewSet):
     # episode=SubscriptionSerializer(many=True,read_only=True)
-    queryset = Subscription.objects.all()
+    queryset = Subscription.objects.filter()
     serializer_class = SubscriptionSerializer

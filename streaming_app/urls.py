@@ -18,4 +18,5 @@ urlpatterns = [
      path('',include('userr.urls')),
     path('',include("subscription.urls")),
         path('homeapi', views.HomeAPI.as_view(), name='home-api'),
+        path('watchMovie/<str:id>',views.WatchMovieAPI.as_view())
 ]

@@ -1,8 +1,12 @@
+from http import HTTPStatus
 from django.http import JsonResponse
 from django.shortcuts import get_list_or_404, render
 
 # Create your views here.
 from rest_framework import viewsets
+
+from subscription.models import Subscription
+import userr
 from .models import *
 from .serializers import *
 from drf_yasg.utils import swagger_auto_schema
@@ -64,6 +68,35 @@ class HomeAPI(generics.ListAPIView):
         }
         
         return Response(response_data)
+    
+class WatchMovieAPI(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def get(self, request,id, format=None):
+        serializer_context = {
+    'request': (request),
+}    
+        try:
+      
+            usersupscription= Subscription.objects.filter(user=request.user).latest('id')#.latest('id')#.filter(Subscription.user==request.user).latest
+            print(usersupscription)
+            if usersupscription:
+                movie=Movie.objects.get(id=id)
+                serializer=UserSerializer(request.user)
+                if usersupscription.is_active:
+                    print(True)
+                    return JsonResponse(MoviePathSerializer(movie).data,safe=False)
+                return JsonResponse({"error":"subscription not found"})
+                # return JsonResponse(serializer.data,safe=False)
+            else:
+                return JsonResponse({
+                    "status":HTTPStatus.NOT_FOUND,
+                    "error":"Subscription Not found."})
+            
+        except Exception as e:
+            
+            return JsonResponse({
+                "status":HTTPStatus.NOT_FOUND,
+                "error":str(e)})
 # from rest_framework import mixins
 # class EpisodesViewSet( mixins.ListModelMixin,viewsets.GenericViewSet):
 #     # pass
