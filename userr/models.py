@@ -1,6 +1,8 @@
 # from django.contrib.auth.models import User
 from django.db import models
 from django.conf import settings
+
+from streaming_app.models import *
 User = settings.AUTH_USER_MODEL
 # users/models.py
 from django.contrib.auth.base_user import BaseUserManager
@@ -64,6 +66,10 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = "email" # make the user log in with the email
     REQUIRED_FIELDS = ["username"]
 
+    def movies(self):
+        return Movie.objects.all()
+    def tvshows(self):
+        return TVSeries.objects.all()
 #     objects = CustomUserManager()
 # class User(AbstractUser):
     

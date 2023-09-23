@@ -91,4 +91,29 @@ class LoginSerializer(serializers.Serializer):
         # It will be used in the view.
         attrs['user'] = user
         return attrs
+ 
+
+# from django.contrib.auth.hashers import make_password
+# class RegisterSerializer(serializers.ModelSerializer):   
+
+#     class Meta:
+#         model=CustomUser
+#         fields=['email','password']
+#         write_only_fields=['password']
+
+#     def validate_password(self, data):
+#             # validators.validate_password(password=data, user=User)
+#             data=make_password(data)
+#             return data
+
+# class VerifyOtpSerializer(serializers.Serializer):
+#     email=serializers.EmailField(label="Email")
+#     otp=serializers.CharField(label="Otp")
+
+
+
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model=CustomUser
+#         fields='__all__'
   

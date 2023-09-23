@@ -1,7 +1,20 @@
-from django.shortcuts import render
+import base64
+import datetime
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from pyotp import HOTP
+from userr.models import CustomUser
+
+from userr.serializers import LoginSerializer, RegisterSerializer, VerifyOtpSerializer
 
 # Create your views here.
 from .forms import SignUpForm, LogInForm
+from django.contrib.auth import authenticate,login,logout
+# This class returns the string needed to generate the key
+class generateKey:
+    @staticmethod
+    def returnValue(phone): 
+        return str(phone) + str(datetime.date.today()) + "Some Random Secret Key"
 
 # def signup(request):
 #     if request.method == 'POST':
