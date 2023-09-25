@@ -3,7 +3,7 @@ from .models import *
 # Register your models here.
 
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ['url', 'img_preview',
+    list_display = ['url',# 'img_preview',
                     # 'video_preview'
                     ]
 admin.site.register(Movie , MovieAdmin)

@@ -1,6 +1,7 @@
 from http import HTTPStatus
-from django.http import JsonResponse
-from django.shortcuts import get_list_or_404, render
+import time
+from django.http import FileResponse, JsonResponse, StreamingHttpResponse
+from django.shortcuts import get_list_or_404, get_object_or_404, render
 
 # Create your views here.
 from rest_framework import viewsets
@@ -52,13 +53,19 @@ class UserDashboard(APIView):
 
         serializer=UserSerializer(request.user)
         return JsonResponse(serializer.data,safe=False)
+from django.views.decorators.cache import never_cache
 from rest_framework.response import Response
 from rest_framework import generics
+from django.utils.decorators import method_decorator
 class HomeAPI(generics.ListAPIView):
     movies_queryset = Movie.objects.all()
     tvshow_queryset = TVSeries.objects.all()
     parser_classes = (FormParser, MultiPartParser)
+    
+    
+    @method_decorator(never_cache)
     def list(self, request, *args, **kwargs):
+        
         movie_serializer = MovieSerializer(self.movies_queryset, many=True)
         tvshow_serializer = TVSeriesSerializer(self.tvshow_queryset, many=True)
         
@@ -68,7 +75,7 @@ class HomeAPI(generics.ListAPIView):
         }
         
         return Response(response_data)
-    
+
 class WatchMovieAPI(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request,id, format=None):
@@ -105,4 +112,26 @@ class WatchMovieAPI(APIView):
 #             doc = get_list_or_404(queryset)
 #             serializer = EpisodesSerializer(doc,many=True,)
 #             return JsonResponse(serializer.data,safe=False)
-    
+
+def generate_video_chunks(video_path, chunk_size=1024 * 1024):
+    with open(video_path, 'rb') as video_file:
+        while True:
+            chunk = video_file.read(chunk_size)
+            if not chunk:
+                break
+            yield chunk
+            time.sleep(1)  # Simulated delay between chunks
+
+
+def stream_file(request, file_id):
+    uploaded_file = get_object_or_404(Movie, pk=file_id)
+    file_path = uploaded_file.movie_path.path
+    chunk_size = 1024  # Set your desired chunk size
+    # response = StreamingHttpResponse(generate_video_chunks(file_path), content_type="application/octet-stream")
+    # response['Content-Disposition'] = 'attachment; filename="your_video.mp4"'
+
+    # # response['Content-Disposition'] = 'attachment; filename="chunked_data.txt"'
+    # return response
+    # print(file_path)
+    response = FileResponse(open(file_path, 'rb'))
+    return response
