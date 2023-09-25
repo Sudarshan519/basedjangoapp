@@ -1,6 +1,7 @@
 from http import HTTPStatus
 from django.http import JsonResponse
 from django.shortcuts import get_list_or_404, render
+from fastapi import openapi
 
 # Create your views here.
 from rest_framework import viewsets
@@ -11,8 +12,9 @@ from .models import *
 from .serializers import *
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.parsers import FormParser, MultiPartParser
-
+from django.utils.decorators import method_decorator
 from rest_framework import mixins
+from django.views.decorators.cache import never_cache
 # @swagger_auto_schema(tags=['MOVIE'],method='post', operation_description='',request_body=MovieSerializer,)
 
 class MovieViewSet(viewsets.ModelViewSet):
@@ -58,6 +60,7 @@ class HomeAPI(generics.ListAPIView):
     movies_queryset = Movie.objects.all()
     tvshow_queryset = TVSeries.objects.all()
     parser_classes = (FormParser, MultiPartParser)
+    @method_decorator(never_cache)
     def list(self, request, *args, **kwargs):
         movie_serializer = MovieSerializer(self.movies_queryset, many=True)
         tvshow_serializer = TVSeriesSerializer(self.tvshow_queryset, many=True)
@@ -68,7 +71,22 @@ class HomeAPI(generics.ListAPIView):
         }
         
         return Response(response_data)
-    
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+@api_view(['GET'])
+
+# @swagger_auto_schema(tags=["my_custom_tag"], method='delete', manual_parameters=[openapi.Parameter(
+#     name='delete_form_param',
+#      in_=openapi.IN_FORM,
+#     type=openapi.TYPE_INTEGER,
+#     description="this should not crash (form parameter on DELETE method)"
+# )])
+def api_root(request, format=None):
+    return Response({
+        'movies': reverse('movies', request=request, format=format),
+        'tvshows': reverse('tvshows', request=request, format=format)
+    })
 class WatchMovieAPI(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request,id, format=None):

@@ -17,6 +17,8 @@ urlpatterns = [
     path('streaming', include(router.urls)),
      path('',include('userr.urls')),
     path('',include("subscription.urls")),
+    path('home',views.api_root ),
+    path('movies/', views.MovieViewSet.as_view({'get': 'list'}), name='movie-list'),
         path('homeapi', views.HomeAPI.as_view(), name='home-api'),
         path('watchMovie/<str:id>',views.WatchMovieAPI.as_view())
 ]

@@ -6,6 +6,7 @@ from streaming_app.file_upload import  download_blob, upload_to_gcs
 from userr.models import CustomUser
 from .models import *
 class MovieSerializer(serializers.ModelSerializer):
+    movie_path = serializers.FileField(max_length=None, allow_empty_file=False, use_url=True) 
     # download_path = serializers.CharField(read_only=True )
     # file = serializers.FileField()
     def create(self, validated_data):
@@ -49,7 +50,9 @@ class MovieSerializer(serializers.ModelSerializer):
     #     return data
     class Meta:
         model=Movie
-        exclude=()#("movie_path",)
+        # exclude=("movie_path",)
+        fields = '__all__'
+
         # include=("download_path")
         # include=('download_path')
         # fields=[ "download_path"]
@@ -101,7 +104,11 @@ class UserSerializer(serializers.ModelSerializer):
         # fields='__all__'
         fields=('username','email','movies','tvshows')
 
-    
+class HomeSerializer(serializers.Serializer):
+    movies=MovieSerializer(many=True)
+    tvshows=TVSeriesSerializer(many=True)
+    class Meta:
+        fields=('movies','tvshows')
 
 class HomeSerializer(serializers.Serializer):
     movies=MovieSerializer(many=True)
