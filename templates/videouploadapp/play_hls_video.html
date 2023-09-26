@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Play HLS Video - My Django App{% endblock %}
+
+{% block content %}
+<h2>Play HLS Video</h2>
+
+<div id="video-container">
+    <video id="hls-video" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
+        <source src="{% static 'path_to_your_hls_playlist.m3u8' %}" type="application/x-mpegURL">
+        Your browser does not support the video tag.
+    </video>
+</div>
+
+<a href="{% url 'playable_link' %}" class="btn btn-secondary">Back to Videos</a>
+
+<!-- Include video.js library -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.15.4/video-js.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.15.4/video.min.js"></script>
+<script>
+    // Initialize video.js player
+    videojs("hls-video");
+</script>
+{% endblock %}

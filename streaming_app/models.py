@@ -3,6 +3,14 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from streaming_app.file_upload import download_blob, generate_signed_url
+
+
+ 
+
+class Video(models.Model):
+    title = models.CharField(max_length=100)
+    upload = models.FileField(upload_to='uploads/')
+    hls_playlist = models.FileField(upload_to='hls/', null=True, blank=True)
 # Create your models here.
 class Movie(models.Model):
     

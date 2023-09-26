@@ -49,7 +49,8 @@ INSTALLED_APPS = [
      'corsheaders',
      'streaming_app',
      'subscription',
-     'hotel_booking'
+     'hotel_booking',
+     'videouploadpp'
     
 ]
 

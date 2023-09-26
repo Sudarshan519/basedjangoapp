@@ -1,10 +1,13 @@
 from http import HTTPStatus
-from django.http import JsonResponse
-from django.shortcuts import get_list_or_404, render
+import os
+import subprocess
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_list_or_404, redirect, render
 from fastapi import openapi
 
 # Create your views here.
 from rest_framework import viewsets
+from streaming_app.video_upload_form import VideoUploadForm
 
 from subscription.models import Subscription
 import userr
@@ -123,4 +126,35 @@ class WatchMovieAPI(APIView):
 #             doc = get_list_or_404(queryset)
 #             serializer = EpisodesSerializer(doc,many=True,)
 #             return JsonResponse(serializer.data,safe=False)
+
+def play_hls_video(request, video_id):
+    try:
+        video = Movie.objects.get(id=video_id)
+        hls_base_url = '/media/hls/'  # Update to match your directory structure
+        playable_link = f'{hls_base_url}{video_id}/index.m3u8'
+        return render(request, 'play_hls_video.html', {'playable_link': playable_link})
+    except Movie.DoesNotExist:
+        return HttpResponse('Video not found', status=404)
     
+
+def convert_to_hls(video_path, output_path):
+    subprocess.run(['ffmpeg', '-i', video_path, '-c:v', 'h264', '-hls_time', '10', '-hls_list_size', '0', '-hls_segment_filename', f'{output_path}/segment%d.ts', f'{output_path}/index.m3u8'])
+
+def upload_video(request):
+    if request.method == 'POST':
+        form = VideoUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            video = form.save()
+
+            # Generate HLS playlist
+            video_path = video.upload.path
+            hls_output_path = os.path.join('media', 'hls', str(video.id))
+            os.makedirs(hls_output_path, exist_ok=True)
+            convert_to_hls(video_path, hls_output_path)
+            video.hls_playlist = os.path.join(hls_output_path, 'index.m3u8')
+            video.save()
+
+            return redirect('video_detail', video_id=video.id)
+    else:
+        form = VideoUploadForm()
+    return render(request, 'upload.html', {'form': form})
