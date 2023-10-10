@@ -1,6 +1,6 @@
 import os
 import subprocess
-from django.http import HttpResponse, JsonResponse
+from django.http import FileResponse, HttpResponse, JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -73,3 +73,19 @@ def play_hls_video(request, video_id):
 #     else:
 #         form = VideoUploadForm()
 #     return render(request, 'upload.html', {'form': form})
+
+
+def stream_video(request):
+    # Define the path to the video file
+    video_path = os.path.join("media", "sample.mp4")
+
+    # Open the video file in binary mode
+    video_file = open(video_path, "rb")
+
+    # Set the content type for the response
+    response = FileResponse(video_file, content_type="video/mp4")
+
+    # Optionally, specify the content length (size of the video file)
+    response["Content-Length"] = os.path.getsize(video_path)
+
+    return response
