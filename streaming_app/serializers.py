@@ -2,7 +2,7 @@ import json
 from rest_framework import serializers
 import mimetypes
 
-from streaming_app.file_upload import  download_blob, upload_to_gcs
+# from streaming_app.file_upload import  download_blob, upload_to_gcs
 from userr.models import CustomUser
 from .models import *
 class MovieSerializer(serializers.ModelSerializer):

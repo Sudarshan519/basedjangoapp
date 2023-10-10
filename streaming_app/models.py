@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
-from streaming_app.file_upload import download_blob, generate_signed_url
+# from streaming_app.file_upload import download_blob, generate_signed_url
 
 
  
@@ -36,8 +36,8 @@ class Movie(models.Model):
     def __str__(self) -> str:
         return self.title
     
-    def download_path(self):
-        return generate_signed_url(self.url)
+    # def download_path(self):
+    #     return generate_signed_url(self.url)
 
 class TVSeries(models.Model):
     title=models.CharField(max_length=256,null=True,blank=True)

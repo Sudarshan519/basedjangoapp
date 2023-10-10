@@ -6,8 +6,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
-    <!-- <link href="images/favicon.png" rel="icon" /> -->
-    <title>Payyed - Money Transfer and Online Payments HTML Template</title>
+    <link href="https://e-rps.netlify.app/assets/images/favicon.png" rel="icon" />
+    <!-- <link rel="stylesheet" href="https://e-rps.netlify.app/assets/images/favicon.png" rel="icon"> -->
+    <title>RPS - Money Transfer and Online Payments HTML Template</title>
     <meta name="description"
         content="This professional design html template is for build a Money Transfer and online payments website.">
     <meta name="author" content="harnishdesign.net">
@@ -30,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'site/vendor/owl.carousel/assets/owl.carousel.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'site/css/stylesheet.css' %}" />
     <!-- Colors Css -->
-    <!-- <link id="color-switcher" type="text/css" rel="stylesheet" href="#" /> -->
+    <link id="color-switcher" type="text/css" rel="stylesheet" href="{% static '/site/css/color-blue.css' %}" />
 </head>
 
 <body>
@@ -54,7 +55,9 @@
                         <!-- Logo
           ============================= -->
                         <div class="logo me-3"> <a class="d-flex" href="index.html" title="Payyed - HTML Template"><img
-                                    src="images/logo-light.png" alt="Payyed" /></a> </div>
+                                    src="https://e-rps.netlify.app/assets/images/new-logo-rps.png" alt="Payyed"
+                                    height="40px" style="margin-top:10px;margin-bottom:10px" /></a>
+                        </div>
                         <!-- Logo end -->
                         <!-- Collapse Button
           ============================== -->
@@ -419,8 +422,8 @@
                                                             data-style="form-select bg-transparent border-0"
                                                             data-container="body" data-live-search="true" required="">
                                                             <optgroup label="Popular Currency">
-                                                                <option data-icon="currency-flag currency-flag-usd me-1"
-                                                                    data-subtext="United States dollar" value="">USD
+                                                                <option data-icon="currency-flag currency-flag-jpy me-1"
+                                                                    data-subtext="United States dollar" value="">JPY
                                                                 </option>
                                                                 <option data-icon="currency-flag currency-flag-aud me-1"
                                                                     data-subtext="Australian dollar" value="">AUD
@@ -565,8 +568,8 @@
                                                                     data-subtext="United States dollar" value="">USD
                                                                 </option>
                                                                 <option data-icon="currency-flag currency-flag-aud me-1"
-                                                                    data-subtext="Australian dollar" selected="selected"
-                                                                    value="">AUD</option>
+                                                                    data-subtext="Australian dollar" value="">AUD
+                                                                </option>
                                                                 <option data-icon="currency-flag currency-flag-inr me-1"
                                                                     data-subtext="Indian rupee" value="">INR</option>
                                                             </optgroup>
@@ -689,10 +692,10 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <p class="text-muted mb-1">Total fees - <span class="fw-500">7.21 USD</span>
+                                            <p class="text-muted mb-1">Total fees - <span class="fw-500">7.21 JPY</span>
                                             </p>
                                             <p class="text-muted">The current exchange rate is <span class="fw-500">1
-                                                    USD = 1.42030 AUD</span>
+                                                    JPY = 1.42030 NPR</span>
                                             </p>
                                             <div class="d-grid"><button class="btn btn-primary">Continue</button></div>
                                         </form>
@@ -1223,7 +1226,7 @@
                                             <div class="mb-4">
                                                 <label for="wantTorequest" class="form-label">I want to request</label>
                                                 <div class="input-group">
-                                                    <span class="input-group-text">$</span>
+                                                    <span class="input-group-text"> $ </span>
                                                     <input type="text" class="form-control"
                                                         data-bv-field="wantTorequest" id="wantTorequest" value="1,000"
                                                         placeholder="">
@@ -1235,8 +1238,8 @@
                                                             required="">
                                                             <optgroup label="Popular Currency">
                                                                 <option data-icon="currency-flag currency-flag-usd me-1"
-                                                                    data-subtext="United States dollar"
-                                                                    selected="selected" value="">USD</option>
+                                                                    data-subtext="United States dollar" value="">USD
+                                                                </option>
                                                                 <option data-icon="currency-flag currency-flag-aud me-1"
                                                                     data-subtext="Australian dollar" value="">AUD
                                                                 </option>
@@ -1623,6 +1626,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg">
+                            <img src="https://e-rps.netlify.app/assets/images/new-logo-rps.png" alt="" srcset=""
+                                height="50px" style="margin-bottom: 30px;margin-top: 30px;">
                             <p class="text-center text-lg-start mb-2 mb-lg-0">Copyright &copy; 2022 <a
                                     href="#">Payyed</a>. All Rights
                                 Reserved.</p>
@@ -1716,10 +1721,48 @@
         </ul>
         <button class="btn btn-dark btn-sm border-0 fw-400 rounded-0 shadow-none" data-bs-toggle="tooltip" title="Green"
             id="reset-color">Reset Default</button>
-        <button class="btn switcher-toggle"><i class="fa fa-cog"></i></button>
+        <!-- <button class="btn switcher-toggle"><i class="fa fa-cog"></i></button> -->
     </div>
     <!-- Styles Switcher End -->
+    <script>
+        var recipentGets = document.getElementById('recipientGets');
+        var youSend = document.getElementById('youSend');
+        youSend.value = (1000).toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'JPY',
 
+        }).replace("¥", '');
+        recipentGets.value = (1000 * 1.01).toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'JPY',
+
+        }).replace("¥", '');
+
+        youSend.addEventListener('input', function (e) {
+
+
+
+
+            var currentVal = ((this.value.replaceAll(',', '').replace("¥", '') * 1).toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'JPY',
+            }));
+
+
+
+
+            // recipentGets.value = ((this.value.replaceAll(',', '')) * 1.01).toLocaleString('en-US', {
+            //     style: 'currency',
+            //     currency: 'JPY',
+
+            // }).replace("¥", '');
+
+            youSend.value = currentVal.replace("¥", '');
+        }, false);
+        recipentGets.addEventListener('input', function (e) {
+
+        })
+    </script>
     <!-- Script -->
     <script src="{% static 'site/vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'site/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -1728,7 +1771,23 @@
     <!-- Style Switcher -->
     <script src="{% static 'site/js/switcher.min.js' %}"></script>
     <script src="{% static 'site/js/theme.js' %}"></script>
+    <script>
+        $('#youSend').on('input', function (e) {
+            var currentVal = ((this.value.replaceAll(',', '').replace("¥", '') * 1).toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'JPY',
+            }));
+            $('#recipientGets').val((this.value.replaceAll(',', '')) * 1.01).toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'JPY',
 
+            }).replace("¥", '');
+            this.val(currentVal.replace("¥", ''))
+
+        })
+
+
+    </script>
 </body>
 
 </html>

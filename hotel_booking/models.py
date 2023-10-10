@@ -15,9 +15,9 @@ class Hotel(models.Model):
     nearby=models.CharField(max_length=256)
 
 
-class HotelImages(models.Model):
-    image=models.ImageField(upload_to="hotels/")
-    hotel=models.ForeignKey("hotel_booking.Hotel",default=1,on_delete=models.CASCADE)
+# class HotelImages(models.Model):
+#     image=models.ImageField(upload_to="hotels/")
+#     hotel=models.ForeignKey("hotel_booking.Hotel",default=1,on_delete=models.CASCADE)
 
 class Room(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
