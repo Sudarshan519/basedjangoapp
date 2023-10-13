@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('baseapp.urls')),
     path('',include('userr.urls')),
-    path('upload_video/', include('videouploadpp.urls')),
+    # path('upload_video/', include('videouploadpp.urls')),
   
 #     path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
 # path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
