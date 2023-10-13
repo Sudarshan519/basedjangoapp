@@ -3,7 +3,7 @@ import os
 import subprocess
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_list_or_404, redirect, render
-from fastapi import openapi
+# from fastapi import openapi
 
 # Create your views here.
 from rest_framework import viewsets
