@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from .models import  Movie,TVSeries,Episode
 # Register your models here.
 
 # class MovieAdmin(admin.ModelAdmin):

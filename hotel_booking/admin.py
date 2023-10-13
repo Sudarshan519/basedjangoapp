@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import *
+from .models import Places,Hotel,Room,Booking,BookingPayment
 admin.site.register(Places)
 admin.site.register(Hotel)
 # admin.site.register(HotelImages)

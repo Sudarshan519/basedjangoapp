@@ -8,8 +8,6 @@ from userr.models import CustomUser
 from userr.serializers import LoginSerializer, RegisterSerializer, VerifyOtpSerializer
 
 # Create your views here.
-from .forms import SignUpForm, LogInForm
-from django.contrib.auth import authenticate,login,logout
 # This class returns the string needed to generate the key
 class generateKey:
     @staticmethod
@@ -61,14 +59,10 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 # from django import views
 # from django.contrib.auth.models import User, Group
 # from rest_framework.parsers import JSONParser
-from .models import CustomUser
-from rest_framework import viewsets
-from rest_framework import permissions
-from .serializers import *
+from .models import CustomUser 
+from rest_framework import permissions 
 from rest_framework.response import Response
-from rest_framework import status
-from django.http import HttpResponse, JsonResponse
-from rest_framework import generics
+from rest_framework import status 
 from rest_framework.decorators import api_view
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.decorators import action
@@ -77,8 +71,8 @@ import pyotp
 import base64
 from drf_yasg.utils import swagger_auto_schema 
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.views.decorators.vary import vary_on_cookie
-from django.views.decorators.cache import cache_page
+# from django.views.decorators.vary import vary_on_cookie
+# from django.views.decorators.cache import cache_page
 
 
 from django.shortcuts import render
