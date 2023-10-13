@@ -51,7 +51,8 @@ def play_hls_video(request, video_id):
         # return render(request, 'videouploadpp/play_hls_video.html', {'playable_link': playable_link})
     except Video.DoesNotExist:
         return HttpResponse('Video not found', status=404)
-    
+def updated(request):
+    return "hello"
 
 
 
