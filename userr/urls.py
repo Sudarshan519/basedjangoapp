@@ -11,7 +11,7 @@ from django.urls import path
     # path('login/', log_in, name='login'),
     # path('logout/', log_out, name='logout'),
 # from .views import signup, log_in, log_out
-from . import views
+from userr import views
 urlpatterns = [
     # path('signup/', signup, name='signup'),
     # path('login/', log_in, name='login'),
