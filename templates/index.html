@@ -1756,6 +1756,11 @@
             //     currency: 'JPY',
 
             // }).replace("¥", '');
+                     recipentGets.value = (1000 * 1.01).toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'JPY',
+
+        }).replace("¥", '');
 
             youSend.value = currentVal.replace("¥", '');
         }, false);
@@ -1772,7 +1777,14 @@
     <script src="{% static 'site/js/switcher.min.js' %}"></script>
     <script src="{% static 'site/js/theme.js' %}"></script>
     <script>
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
         $('#youSend').on('input', function (e) {
+  
+            if(!isNumeric(this.value))
+            
+      {
             var currentVal = ((this.value.replaceAll(',', '').replace("¥", '') * 1).toLocaleString('en-US', {
                 style: 'currency',
                 currency: 'JPY',
@@ -1782,7 +1794,12 @@
                 currency: 'JPY',
 
             }).replace("¥", '');
-            this.val(currentVal.replace("¥", ''))
+            $('#recipientGets').val(((this.value.replaceAll(',', '')) * 1.01).toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'JPY',
+            }).replace("¥", ''))
+            }
+
 
         })
 
