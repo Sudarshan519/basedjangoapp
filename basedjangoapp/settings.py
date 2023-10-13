@@ -64,7 +64,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    # "django.middleware.cache.FetchFromCacheMiddleware",
+    "django.middleware.cache.FetchFromCacheMiddleware",
     
 ]
 
@@ -86,7 +86,7 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'basedjangoapp.wsgi.application'
+WSGI_APPLICATION = 'basedjangoapp.wsgi.application'
 import os
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
