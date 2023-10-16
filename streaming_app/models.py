@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
+from basedjangoapp import settings
+
 # from streaming_app.file_upload import download_blob, generate_signed_url
 
 
@@ -17,7 +19,7 @@ class Movie(models.Model):
     title=models.CharField(max_length=256,null=True,blank=True)
     logo=models.ImageField(_("Banner Image"), upload_to='media/', height_field=None, width_field=None, max_length=None,null=True,blank=True)
     url=models.CharField(max_length=256,default='',null=True)
-    youtube_trailer_id=models.CharField(max_length=256)
+    youtube_trailer_id=models.CharField(max_length=256,null=True,blank=True)
     desc=models.CharField(max_length=256,null=True,blank=True)
     movie_path=models.FileField(upload_to='movie/', null=True,blank=True)
     price=models.CharField(max_length=256,null=True,blank=True)
@@ -26,6 +28,7 @@ class Movie(models.Model):
     trending=models.CharField(choices=(("",""),("Trending","Trending"),("Latest","Latest")),default='',max_length=80)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True )
+    view_count=models.IntegerField(default=0)
     def img_preview(self): #new
         return mark_safe('<img src = "{url}" height = "80" width="140"/>'.format(
              url = self.logo.url
@@ -38,6 +41,19 @@ class Movie(models.Model):
     
     # def download_path(self):
     #     return generate_signed_url(self.url)
+class MovieComment(models.Model):
+    id=models.IntegerField(primary_key=True)
+    movie=models.ForeignKey(Movie,on_delete=models.CASCADE,related_name="movie_comments")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=True,blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
+ 
+ 
+
+
+    def children(self):
+        return MovieComment.objects.filter(parent=self)    
 
 class TVSeries(models.Model):
     title=models.CharField(max_length=256,null=True,blank=True)

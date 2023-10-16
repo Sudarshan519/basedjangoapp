@@ -6,7 +6,7 @@ import mimetypes
 from userr.models import CustomUser
 from .models import *
 class MovieSerializer(serializers.ModelSerializer):
-    movie_path = serializers.FileField(max_length=None, allow_empty_file=False, use_url=True) 
+    # movie_path = serializers.FileField(max_length=None, allow_empty_file=True, use_url=False,) 
     # download_path = serializers.CharField(read_only=True )
     # file = serializers.FileField()
     def create(self, validated_data):
@@ -113,3 +113,22 @@ class HomeSerializer(serializers.Serializer):
 class HomeSerializer(serializers.Serializer):
     movies=MovieSerializer(many=True)
     tvshows=TVSeriesSerializer(many=True)
+
+
+
+
+# serializers.py
+from rest_framework import serializers
+from .models import Video, MovieComment
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = '__all__'
+
+class MovieDetailSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Movie
+        fields = '__all__'

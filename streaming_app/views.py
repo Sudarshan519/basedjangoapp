@@ -86,24 +86,33 @@ from rest_framework.reverse import reverse
 #     description="this should not crash (form parameter on DELETE method)"
 # )])
 def api_root(request, format=None):
-    return Response({
-        'movies': reverse('movies', request=request, format=format),
-        'tvshows': reverse('tvshows', request=request, format=format)
+    movies_queryset = Movie.objects.all()
+    tvshow_queryset = TVSeries.objects.all()
+    movie_serializer = MovieSerializer(movies_queryset, many=True ).data
+    tvshow_serializer = TVSeriesSerializer(tvshow_queryset, many=True ).data
+    # top,trending, fetaured ,latest
+    return JsonResponse({
+        'movies': movie_serializer,
+        'tvshows':tvshow_serializer,
     })
 class WatchMovieAPI(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     def get(self, request,id, format=None):
+        return JsonResponse(MoviePathSerializer(Movie.objects.get(id=id)).data,safe=False)
         serializer_context = {
     'request': (request),
 }    
         try:
-      
-            usersupscription= Subscription.objects.filter(user=request.user).latest('id')#.latest('id')#.filter(Subscription.user==request.user).latest
-            print(usersupscription)
-            if usersupscription:
+            if request.user   :
+                usersupscription= Subscription.objects.filter(user=request.user).latest('id')#.latest('id')#.filter(Subscription.user==request.user).latest
+                print(usersupscription)
+            if usersupscription or True:
                 movie=Movie.objects.get(id=id)
-                serializer=UserSerializer(request.user)
-                if usersupscription.is_active:
+                movie.view_count+=1
+                movie.save()
+                if request.user:
+                    serializer=UserSerializer(request.user)
+                if usersupscription.is_active or True:
                     print(True)
                     return JsonResponse(MoviePathSerializer(movie).data,safe=False)
                 return JsonResponse({"error":"subscription not found"})
@@ -158,3 +167,14 @@ def upload_video(request):
     else:
         form = VideoUploadForm()
     return render(request, 'upload.html', {'form': form})
+
+class CommentList(generics.ListCreateAPIView):
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):
+        video_id = self.kwargs.get('video_id')
+        return MovieComment.objects.filter(video_id=video_id, parent=None)
+
+class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = MovieComment.objects.all()
+    serializer_class = CommentSerializer
